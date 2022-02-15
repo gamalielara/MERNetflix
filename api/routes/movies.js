@@ -64,7 +64,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // GET RANDOM MOVIE
-router.delete("/random", async (req, res) => {
+router.get("/random", async (req, res) => {
   const type = req.query.type;
   let movie;
   try {
