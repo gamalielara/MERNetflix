@@ -2,7 +2,7 @@ const router = require("express").Router();
 const List = require("../models/List");
 const verify = require("./verifyToken");
 
-// CREATE NEW MOVIE
+// CREATE NEW LIST
 router.post("/", verify, async (req, res) => {
   if (req.user.isAdmin) {
     const newList = new List(req.body);

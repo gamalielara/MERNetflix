@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema(
     prpfilePic: { type: String, default: "" },
     isAdmin: { type: Boolean, default: false },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("User", UserSchema);

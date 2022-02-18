@@ -53,22 +53,13 @@ router.delete("/:id", verify, async (req, res) => {
   }
 });
 
-// GET MOVIE BY ID
-router.get("/:id", async (req, res) => {
-  try {
-    const getMovie = await Movie.findById(req.params.id);
-    res.status(200).json(getMovie);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 // GET RANDOM MOVIE
 router.get("/random", async (req, res) => {
   const type = req.query.type;
   let movie;
+
   try {
-    if (type === "series") {
+    if (type && type === "series") {
       movie = await Movie.aggregate([
         { $match: { isSeries: true } },
         { $sample: { size: 1 } },
@@ -80,6 +71,16 @@ router.get("/random", async (req, res) => {
       ]);
     }
     res.status(200).json(movie);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// GET MOVIE BY ID
+router.get("/:id", async (req, res) => {
+  try {
+    const getMovie = await Movie.findById(req.params.id);
+    res.status(200).json(getMovie);
   } catch (err) {
     res.status(500).json(err);
   }
