@@ -18,7 +18,7 @@ router.post("/", verify, async (req, res) => {
   }
 });
 
-// DELETE MOVIE
+// DELETE LIST
 router.delete("/", verify, async (req, res) => {
   if (req.user.isAdmin) {
     try {

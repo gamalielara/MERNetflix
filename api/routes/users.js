@@ -51,7 +51,6 @@ router.delete("/:id", verify, async (req, res) => {
 
 // GET
 router.get("/find/:id", async (req, res) => {
-  // verify JSON web token
   try {
     const user = await User.findById(req.params.id);
     const { password, ...info } = user._doc;
@@ -67,7 +66,8 @@ router.get("/", verify, async (req, res) => {
   const query = req.query.new;
 
   // verify JSON web token
-  if (req.user.id === req.params.id || req.user.isAdmin) {
+  if (req.user.isAdmin) {
+    console.log(req.params);
     try {
       let user;
       if (query) {

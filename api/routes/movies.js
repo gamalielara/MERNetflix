@@ -53,6 +53,18 @@ router.delete("/:id", verify, async (req, res) => {
   }
 });
 
+// GET ALL MOVIE
+router.get("/allmovies", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const data = await Movie.find();
+      res.status(200).json(data);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+});
+
 // GET RANDOM MOVIE
 router.get("/random", async (req, res) => {
   const type = req.query.type;
