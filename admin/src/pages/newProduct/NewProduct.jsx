@@ -10,6 +10,7 @@ import {
 import { addMovies } from "../../context/movieContext/movieAPICalls";
 import { useContext } from "react";
 import { MovieContext } from "../../context/movieContext/movieContext";
+import { useHistory } from "react-router-dom";
 
 export default function NewProduct() {
   const [movie, setMovie] = useState({});
@@ -19,8 +20,8 @@ export default function NewProduct() {
   const [imgMobile, setImgMobile] = useState(null);
   const [imgPreview, setImgPreview] = useState(null);
   const [uploaded, setUploaded] = useState(0);
-
   const { dispatch } = useContext(MovieContext);
+  const history = useHistory();
 
   const handleChange = (e) => {
     const val = e.target.value;
@@ -30,7 +31,6 @@ export default function NewProduct() {
   const upload = (items) => {
     // to upload files to firebase
     items.forEach((item) => {
-      console.log(item);
       const fileName =
         new Date().getTime() + "_" + item.label + "_" + item.file.name;
       const storageRef = ref(storage, `/items/${fileName}`);
@@ -72,6 +72,7 @@ export default function NewProduct() {
   const handleSubmit = (e) => {
     e.preventDefault();
     addMovies(dispatch, movie);
+    history.pushState("/movies");
   };
 
   return (
@@ -134,12 +135,12 @@ export default function NewProduct() {
         </div>
         <div className="addProductItem">
           <label>Description</label>
-          <input
-            type="text"
-            placeholder="Enter Description (max 50 words)"
+          <textarea
             name="description"
+            cols="30"
+            rows="10"
             onChange={handleChange}
-          />
+          ></textarea>
         </div>
         <div className="addProductItem">
           <label>Year</label>
@@ -188,10 +189,37 @@ export default function NewProduct() {
         </div>
         <div className="addProductItem">
           <label>Series or Film</label>
-          <select name="isSeries" id="isSeries" onChange={handleChange}>
+
+          <label htmlFor="film">
+            <input
+              type="radio"
+              name="isSeries"
+              value="false"
+              id="film"
+              onClick={handleChange}
+            />{" "}
+            Film
+          </label>
+
+          <label htmlFor="series">
+            <input
+              type="radio"
+              name="isSeries"
+              value="true"
+              id="series"
+              onClick={handleChange}
+            />{" "}
+            Series
+          </label>
+          {/* <select
+            name="isSeries"
+            id="isSeries"
+            onChange={handleChange}
+          >
+            <option value="">Choose</option>
             <option value="true">Series</option>
             <option value="false">Film</option>
-          </select>
+          </select> */}
         </div>
         {uploaded === 5 ? (
           <button className="addProductButton" onClick={(e) => handleSubmit(e)}>

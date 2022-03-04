@@ -10,9 +10,9 @@
 }
 
 .productAddButton {
-  width: 80px;
+  width: auto;
   border: none;
-  padding: 5px;
+  padding: 10px;
   background-color: teal;
   color: white;
   border-radius: 5px;

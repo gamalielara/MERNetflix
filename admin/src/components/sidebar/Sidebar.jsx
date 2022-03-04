@@ -1,18 +1,8 @@
 import "./sidebar.css";
 import {
   LineStyle,
-  Timeline,
-  TrendingUp,
   PermIdentity,
-  Storefront,
   AttachMoney,
-  BarChart,
-  MailOutline,
-  DynamicFeed,
-  ChatBubbleOutline,
-  WorkOutline,
-  Report,
-  PlayArrow,
   PlayCircleOutline,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -30,76 +20,25 @@ export default function Sidebar() {
                 Home
               </li>
             </Link>
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Analytics
-            </li>
-            <li className="sidebarListItem">
-              <TrendingUp className="sidebarIcon" />
-              Sales
-            </li>
           </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Quick Menu</h3>
-          <ul className="sidebarList">
-            <Link to="/users" className="link">
-              <li className="sidebarListItem">
-                <PermIdentity className="sidebarIcon" />
-                Users
-              </li>
-            </Link>
-            <Link to="/movies" className="link">
-              <li className="sidebarListItem">
-                <PlayCircleOutline className="sidebarIcon" />
-                Movies
-              </li>
-            </Link>
-            <Link to="lists" className="list">
-              <li className="sidebarListItem">
-                <AttachMoney className="sidebarIcon" />
-                List
-              </li>
-            </Link>
+          <Link to="/users" className="link">
             <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reports
+              <PermIdentity className="sidebarIcon" />
+              Users
             </li>
-          </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Notifications</h3>
-          <ul className="sidebarList">
+          </Link>
+          <Link to="/movies" className="link">
             <li className="sidebarListItem">
-              <MailOutline className="sidebarIcon" />
-              Mail
+              <PlayCircleOutline className="sidebarIcon" />
+              Movies
             </li>
+          </Link>
+          <Link to="/lists" className="link">
             <li className="sidebarListItem">
-              <DynamicFeed className="sidebarIcon" />
-              Feedback
+              <AttachMoney className="sidebarIcon" />
+              List
             </li>
-            <li className="sidebarListItem">
-              <ChatBubbleOutline className="sidebarIcon" />
-              Messages
-            </li>
-          </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Staff</h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <WorkOutline className="sidebarIcon" />
-              Manage
-            </li>
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Analytics
-            </li>
-            <li className="sidebarListItem">
-              <Report className="sidebarIcon" />
-              Reports
-            </li>
-          </ul>
+          </Link>
         </div>
       </div>
     </div>

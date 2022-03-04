@@ -1,4 +1,4 @@
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import "./product.css";
 import { Publish } from "@material-ui/icons";
 import { updateMovie } from "../../context/movieContext/movieAPICalls";
@@ -9,22 +9,21 @@ import { MovieContext } from "../../context/movieContext/movieContext";
 export default function Product() {
   const location = useLocation();
   const movie = location.movie;
-  const [mov, setMov] = useState({});
+  const [mov, setMov] = useState({ _id: movie._id });
+  const history = useHistory();
 
   const { dispatch } = useContext(MovieContext);
 
-  const updateMovie = (e) => {
+  const updateMovieHandler = (e) => {
     e.preventDefault();
     updateMovie(dispatch, mov);
+    history.push("/movies");
   };
 
   return movie ? (
     <div className="product">
       <div className="productTitleContainer">
         <h1 className="productTitle">Movie Info</h1>
-        <Link to="/newproduct">
-          <button className="productAddButton">Create</button>
-        </Link>
       </div>
       <div className="productTop">
         <div className="productTopRight">
@@ -91,14 +90,27 @@ export default function Product() {
                 setMov({ ...mov, limit: e.target.value });
               }}
             />
-            <label>Year</label>
-            <input
-              type="text"
-              placeholder={movie.year}
-              onChange={(e) => {
-                setMov({ ...mov, year: e.target.value });
-              }}
-            />
+            <label>Series or Movie</label>
+            <label htmlFor="film">
+              <input
+                type="radio"
+                name="isSeries"
+                value="false"
+                id="film"
+                onClick={(e) => setMov({ ...mov, isSeries: e.target.value })}
+              />{" "}
+              Film
+            </label>
+            <label htmlFor="series">
+              <input
+                type="radio"
+                name="isSeries"
+                value="true"
+                id="series"
+                onClick={(e) => setMov({ ...mov, isSeries: e.target.value })}
+              />{" "}
+              Series
+            </label>
           </div>
           <div className="productFormRight">
             <div className="productUpload">
@@ -115,7 +127,12 @@ export default function Product() {
                 }}
               />
             </div>
-            <button className="productButton">Update</button>
+            <button
+              className="productButton"
+              onClick={(e) => updateMovieHandler(e)}
+            >
+              Update
+            </button>
           </div>
         </form>
       </div>

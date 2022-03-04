@@ -53,10 +53,7 @@ router.get("/", verify, async (req, res) => {
       }
     } else {
       if (genreQuery) {
-        list = await List.aggregate([
-          { $sample: { size: 5 } },
-          { $match: { genre: genreQuery } },
-        ]);
+        list = await List.aggregate([{ $match: { genre: genreQuery } }]);
       } else {
         list = await List.aggregate([{ $sample: { size: 5 } }]);
       }

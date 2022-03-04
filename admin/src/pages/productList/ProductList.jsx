@@ -7,14 +7,16 @@ import { MovieContext } from "../../context/movieContext/movieContext";
 import { delMovies, getMovies } from "../../context/movieContext/movieAPICalls";
 
 export default function ProductList() {
-  const { movies, dispatch } = useContext(MovieContext);
+  const { movies, dispatch, isFetching } = useContext(MovieContext);
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     getMovies(dispatch);
-  }, [dispatch]);
+  }, [refresh]);
 
   const handleDelete = (id) => {
     delMovies(dispatch, id);
+    setRefresh((prev) => prev + 1);
   };
 
   const columns = [
@@ -64,14 +66,30 @@ export default function ProductList() {
 
   return (
     <div className="productList">
-      <DataGrid
-        rows={movies}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-        getRowId={(row) => row._id}
-      />
+      {movies ? (
+        <>
+          <Link to="/newproduct">
+            <button
+              className="productAddButton"
+              style={{ marginBottom: "10px" }}
+            >
+              Create Movie or Series
+            </button>
+          </Link>
+          <DataGrid
+            rows={movies}
+            disableSelectionOnClick
+            columns={columns}
+            pageSize={8}
+            checkboxSelection
+            getRowId={(row) => row._id}
+          />
+        </>
+      ) : (
+        <div className="loading">
+          <h2>Loading ...</h2>
+        </div>
+      )}
     </div>
   );
 }
