@@ -19,7 +19,7 @@ router.post("/", verify, async (req, res) => {
 });
 
 // DELETE LIST
-router.delete("/", verify, async (req, res) => {
+router.delete("/:id", verify, async (req, res) => {
   if (req.user.isAdmin) {
     try {
       await List.findByIdAndDelete(req.params.id);
@@ -31,6 +31,22 @@ router.delete("/", verify, async (req, res) => {
     res.status(403).json("You are not an admin!");
   }
 });
+
+//get All List
+router.get("/all", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const data = await List.find();
+      res.status(200).json(data);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("You are not authenticated!");
+  }
+});
+
+module.exports = router;
 
 // GET LIST
 router.get("/", verify, async (req, res) => {
@@ -63,5 +79,3 @@ router.get("/", verify, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-module.exports = router;

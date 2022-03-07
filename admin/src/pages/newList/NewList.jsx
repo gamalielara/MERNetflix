@@ -25,15 +25,13 @@ export default function NewList() {
   const handleSubmit = (e) => {
     e.preventDefault();
     createList(dispatchList, list);
-    history.push("/list");
+    history.push("/lists");
   };
 
   const handleSelect = (e) => {
     let value = Array.from(e.target.selectedOptions, (option) => option.value);
     setList({ ...list, [e.target.name]: value });
   };
-
-  console.log(list);
 
   return (
     <div className="newProduct">
@@ -58,7 +56,32 @@ export default function NewList() {
               onChange={handleChange}
             />
           </div>
+
           <div className="addProductItem">
+            <label>Series or Film</label>
+
+            <label htmlFor="film">
+              <input
+                type="radio"
+                name="type"
+                value="film"
+                id="film"
+                onClick={handleChange}
+              />{" "}
+              Film
+            </label>
+
+            <label htmlFor="series">
+              <input
+                type="radio"
+                name="type"
+                value="series"
+                id="series"
+                onClick={handleChange}
+              />{" "}
+              Series
+            </label>
+            {/* <div className="addProductItem">
             <label>Type</label>
             <select
               name="type"
@@ -68,7 +91,7 @@ export default function NewList() {
             >
               <option value="series">Series</option>
               <option value="film">Film</option>
-            </select>
+            </select> */}
           </div>
         </div>
 

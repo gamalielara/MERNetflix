@@ -5,6 +5,13 @@ import { updateMovie } from "../../context/movieContext/movieAPICalls";
 import { useState } from "react";
 import { useContext } from "react";
 import { MovieContext } from "../../context/movieContext/movieContext";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import storage from "../../firebase";
 
 export default function Product() {
   const location = useLocation();
@@ -17,7 +24,34 @@ export default function Product() {
   const updateMovieHandler = (e) => {
     e.preventDefault();
     updateMovie(dispatch, mov);
-    history.push("/movies");
+    // history.push("/movies");
+  };
+
+  const uploadMoviePicture = (e) => {
+    e.preventDefault();
+    const fileImg = e.target.files[0];
+    const fileName = new Date(0).getTime() + "_imgFull_" + fileImg.name;
+    const storageRef = ref(storage, `/items/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, fileImg);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+      },
+
+      (err) => {
+        console.log(err);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) =>
+          setMov((prev) => {
+            return { ...prev, imgFull: url };
+          })
+        );
+      }
+    );
   };
 
   return movie ? (
@@ -123,7 +157,8 @@ export default function Product() {
                 id="file"
                 style={{ display: "none" }}
                 onChange={(e) => {
-                  setMov({ ...mov, imgFull: e.target.files[0] });
+                  uploadMoviePicture(e);
+                  // setMov({ ...mov, imgFull: e.target.files[0] });
                 }}
               />
             </div>

@@ -72,7 +72,7 @@ export default function NewProduct() {
   const handleSubmit = (e) => {
     e.preventDefault();
     addMovies(dispatch, movie);
-    history.pushState("/movies");
+    history.push("/movies");
   };
 
   return (

@@ -14,7 +14,7 @@ import {
 export const getList = async (dispatch) => {
   dispatch(getListsStart());
   try {
-    const res = await axios.get("/lists", {
+    const res = await axios.get("/lists/all", {
       headers: {
         token: "Test " + JSON.parse(localStorage.getItem("user")).accessToken,
       },
@@ -28,10 +28,7 @@ export const getList = async (dispatch) => {
 export const delList = async (dispatch, id) => {
   dispatch(delListsStart());
   try {
-    await axios.delete("/lists/", {
-      params: {
-        id,
-      },
+    await axios.delete(`lists/${id}`, {
       headers: {
         token: "Test " + JSON.parse(localStorage.getItem("user")).accessToken,
       },

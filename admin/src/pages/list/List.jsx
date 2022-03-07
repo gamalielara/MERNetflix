@@ -2,19 +2,21 @@ import "./list.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ListContext } from "../../context/listContext/listContext";
 import { delList, getList } from "../../context/listContext/listAPICalls";
 
 export default function List() {
-  const { list, dispatch } = useContext(ListContext);
+  const { list, dispatch, isFetching } = useContext(ListContext);
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     getList(dispatch);
-  }, [dispatch]);
+  }, [refresh]);
 
   const handleDelete = (id) => {
     delList(dispatch, id);
+    setRefresh((prev) => prev + 1);
   };
 
   const columns = [
@@ -46,14 +48,30 @@ export default function List() {
 
   return (
     <div className="productList">
-      <DataGrid
-        rows={list}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-        getRowId={(row) => row._id}
-      />
+      {list ? (
+        <>
+          <Link to="/newlist">
+            <button
+              className="productAddButton"
+              style={{ marginBottom: "10px" }}
+            >
+              Create New List
+            </button>
+          </Link>
+          <DataGrid
+            rows={list}
+            disableSelectionOnClick
+            columns={columns}
+            pageSize={8}
+            checkboxSelection
+            getRowId={(row) => row._id}
+          />
+        </>
+      ) : isFetching ? (
+        <h1>Fetching ...</h1>
+      ) : (
+        <h1>No list here. Add some list</h1>
+      )}
     </div>
   );
 }
