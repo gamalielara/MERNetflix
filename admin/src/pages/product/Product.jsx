@@ -24,11 +24,12 @@ export default function Product() {
   const updateMovieHandler = (e) => {
     e.preventDefault();
     updateMovie(dispatch, mov);
-    // history.push("/movies");
+    history.push("/movies");
   };
 
-  const uploadMoviePicture = (e) => {
+  const uploadMoviePicture = (e, filedesc) => {
     e.preventDefault();
+    console.log(filedesc.type);
     const fileImg = e.target.files[0];
     const fileName = new Date(0).getTime() + "_imgFull_" + fileImg.name;
     const storageRef = ref(storage, `/items/${fileName}`);
@@ -47,7 +48,7 @@ export default function Product() {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) =>
           setMov((prev) => {
-            return { ...prev, imgFull: url };
+            return { ...prev, [filedesc.type]: url };
           })
         );
       }
@@ -147,21 +148,145 @@ export default function Product() {
             </label>
           </div>
           <div className="productFormRight">
-            <div className="productUpload">
-              <img src={movie.imgFull} alt="" className="productUploadImg" />
-              <label for="file">
+            <div className="productUpload" style={{ marginBottom: "10px" }}>
+              <div className="feature-img">
+                <h3>Full Image</h3>
+                <img
+                  src={
+                    movie.imgFull
+                      ? movie.imgFull
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-TamDSf7UAM-7B_Gg2xh9lIcDp6jzPwfI7jJEYWEmkGCLy1mo7eNE0AUoH5neDHRt7A&usqp=CAU"
+                  }
+                  alt=""
+                  className="productUploadImg"
+                  style={{ maxWidth: "500px" }}
+                />
+              </div>
+              <label for="imgFullUploader">
                 <Publish />
               </label>
               <input
                 type="file"
-                id="file"
+                id="imgFullUploader"
                 style={{ display: "none" }}
                 onChange={(e) => {
-                  uploadMoviePicture(e);
-                  // setMov({ ...mov, imgFull: e.target.files[0] });
+                  uploadMoviePicture(e, { type: "imgFull" });
                 }}
               />
             </div>
+
+            <div className="productUpload" style={{ marginBottom: "10px" }}>
+              <div className="feature-img">
+                <h3>Thumbnail Image</h3>
+                <img
+                  src={
+                    movie.imgThumbnail
+                      ? movie.imgThumbnail
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-TamDSf7UAM-7B_Gg2xh9lIcDp6jzPwfI7jJEYWEmkGCLy1mo7eNE0AUoH5neDHRt7A&usqp=CAU"
+                  }
+                  alt=""
+                  className="productUploadImg"
+                  style={{ maxWidth: "500px" }}
+                />
+              </div>
+              <label for="imgThumbnailUploader">
+                <Publish />
+              </label>
+              <input
+                type="file"
+                id="imgThumbnailUploader"
+                style={{ display: "none" }}
+                onChange={(e) => {
+                  uploadMoviePicture(e, { type: "imgThumbnail" });
+                }}
+              />
+            </div>
+
+            <div className="productUpload" style={{ marginBottom: "10px" }}>
+              <div className="feature-img">
+                <h3>Title Image</h3>
+                <img
+                  src={
+                    movie.imgTitle
+                      ? movie.imgTitle
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-TamDSf7UAM-7B_Gg2xh9lIcDp6jzPwfI7jJEYWEmkGCLy1mo7eNE0AUoH5neDHRt7A&usqp=CAU"
+                  }
+                  alt=""
+                  className="productUploadImg img-title-preview"
+                  style={{ maxWidth: "500px" }}
+                />
+              </div>
+              <label for="imgTitleUploader">
+                <Publish />
+              </label>
+              <input
+                type="file"
+                id="imgTitleUploader"
+                style={{ display: "none" }}
+                onChange={(e) => {
+                  uploadMoviePicture(e, { type: "imgTitle" });
+                }}
+              />
+            </div>
+
+            <div className="productUpload" style={{ marginBottom: "10px" }}>
+              <div className="feature-img">
+                <h3>Preview Image</h3>
+                <img
+                  src={
+                    movie.imgPreview
+                      ? movie.imgPreview
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-TamDSf7UAM-7B_Gg2xh9lIcDp6jzPwfI7jJEYWEmkGCLy1mo7eNE0AUoH5neDHRt7A&usqp=CAU"
+                  }
+                  alt=""
+                  className="productUploadImg"
+                  style={{
+                    maxWidth: "500px",
+                    objectFit: "contain",
+                    backgroundColor: "black",
+                  }}
+                />
+              </div>
+              <label for="imgPreviewUploader">
+                <Publish />
+              </label>
+              <input
+                type="file"
+                id="imgPreviewUploader"
+                style={{ display: "none" }}
+                onChange={(e) => {
+                  uploadMoviePicture(e, { type: "imgPreview" });
+                }}
+              />
+            </div>
+
+            <div className="productUpload" style={{ marginBottom: "10px" }}>
+              <div className="feature-img">
+                <h3>Mobile Image</h3>
+                <img
+                  src={
+                    movie.imgMobile
+                      ? movie.imgMobile
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-TamDSf7UAM-7B_Gg2xh9lIcDp6jzPwfI7jJEYWEmkGCLy1mo7eNE0AUoH5neDHRt7A&usqp=CAU"
+                  }
+                  alt=""
+                  className="productUploadImg"
+                  style={{ maxWidth: "500px" }}
+                />
+              </div>
+              <label for="imgMobileUploader">
+                <Publish />
+              </label>
+              <input
+                type="file"
+                id="imgMobileUploader"
+                style={{ display: "none" }}
+                onChange={(e) => {
+                  uploadMoviePicture(e, { type: "imgMobile" });
+                }}
+              />
+            </div>
+
             <button
               className="productButton"
               onClick={(e) => updateMovieHandler(e)}

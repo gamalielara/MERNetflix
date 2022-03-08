@@ -22,6 +22,7 @@ export default function NewProduct() {
   const [uploaded, setUploaded] = useState(0);
   const { dispatch } = useContext(MovieContext);
   const history = useHistory();
+  const [isUploaded, setIsUploaded] = useState(false);
 
   const handleChange = (e) => {
     const val = e.target.value;
@@ -55,6 +56,7 @@ export default function NewProduct() {
         }
       );
       setUploaded((prev) => prev + 1);
+      setIsUploaded((prev) => !prev);
     });
   };
 
@@ -222,9 +224,16 @@ export default function NewProduct() {
           </select> */}
         </div>
         {uploaded === 5 ? (
-          <button className="addProductButton" onClick={(e) => handleSubmit(e)}>
-            Create
-          </button>
+          isUploaded ? (
+            <button
+              className="addProductButton"
+              onClick={(e) => handleSubmit(e)}
+            >
+              Create
+            </button>
+          ) : (
+            <button className="loadingButton">Uploading</button>
+          )
         ) : (
           <button className="addProductButton" onClick={(e) => handleUpload(e)}>
             Upload

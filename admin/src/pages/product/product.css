@@ -44,6 +44,11 @@
   margin-right: 20px;
 }
 
+.img-title-preview {
+  object-fit: contain !important;
+  background-color: black;
+}
+
 .productInfoKey {
   margin-right: 20px;
 }
@@ -120,6 +125,10 @@
 .productUpload {
   display: flex;
   align-items: center;
+}
+
+.feature-img h3 {
+  text-align: center;
 }
 
 .productButton {
