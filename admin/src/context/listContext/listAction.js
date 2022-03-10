@@ -36,3 +36,15 @@ export const createListsSuccess = (id) => ({
 export const createListsFailure = () => ({
   type: "CREATELISTS_FAILURE",
 });
+export const updateListsStart = () => ({
+  type: "UPDATELISTS_START",
+});
+
+export const updateListsSuccess = (list) => ({
+  type: "UPDATELISTS_SUCCESS",
+  payload: list,
+});
+
+export const updateListsFailure = () => ({
+  type: "UPDATELISTS_FAILURE",
+});

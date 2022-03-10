@@ -54,6 +54,29 @@ const listReducer = (state, action) => {
         isFetching: false,
         error: true,
       };
+    case "UPDATELISTS_START":
+      return {
+        ...state,
+        isFetching: true,
+        error: false,
+      };
+    case "UPDATELISTS_SUCCESS":
+      return {
+        list: state.list.map((li) => {
+          if (li._id === action.payload.id) {
+            return action.payload;
+          }
+          return li;
+        }),
+        isFetching: true,
+        error: false,
+      };
+    case "UPDATELISTS_FAILURE":
+      return {
+        ...state,
+        isFetching: false,
+        error: true,
+      };
     default:
       return state;
   }

@@ -29,7 +29,8 @@
   flex: 1;
 }
 
-.productTopRight {
+.productTopRight,
+.productMiddle {
   padding: 20px;
   margin: 20px;
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
@@ -81,11 +82,14 @@
 .productForm {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 .productFormLeft {
   display: flex;
   flex-direction: column;
+  width: 30%;
+  margin: 0 auto;
 }
 
 .productFormLeft > label {
@@ -130,4 +134,54 @@
   color: white;
   font-weight: 600;
   cursor: pointer;
+  width: 25%;
+  margin: 50px auto;
+}
+
+.list-detail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.list-detail img {
+  width: 15%;
+  object-fit: contain;
+  margin: 10px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.details h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.productImage {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  margin: 0 10px;
+  border-radius: 25%;
+}
+
+.movieLabel {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+  margin: 15px;
+  width: 25%;
+}
+
+.moviesLists {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.movieLabelDetails {
+  font-size: 0.25rem;
 }

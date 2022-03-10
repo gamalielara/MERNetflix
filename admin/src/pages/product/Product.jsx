@@ -1,16 +1,11 @@
-import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import "./product.css";
 import { Publish } from "@material-ui/icons";
 import { updateMovie } from "../../context/movieContext/movieAPICalls";
 import { useState } from "react";
 import { useContext } from "react";
 import { MovieContext } from "../../context/movieContext/movieContext";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import storage from "../../firebase";
 
 export default function Product() {
@@ -18,8 +13,9 @@ export default function Product() {
   const movie = location.movie;
   const [mov, setMov] = useState({ _id: movie._id });
   const history = useHistory();
-
   const { dispatch } = useContext(MovieContext);
+  const noimage =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-TamDSf7UAM-7B_Gg2xh9lIcDp6jzPwfI7jJEYWEmkGCLy1mo7eNE0AUoH5neDHRt7A&usqp=CAU";
 
   const updateMovieHandler = (e) => {
     e.preventDefault();
@@ -152,11 +148,7 @@ export default function Product() {
               <div className="feature-img">
                 <h3>Full Image</h3>
                 <img
-                  src={
-                    movie.imgFull
-                      ? movie.imgFull
-                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-TamDSf7UAM-7B_Gg2xh9lIcDp6jzPwfI7jJEYWEmkGCLy1mo7eNE0AUoH5neDHRt7A&usqp=CAU"
-                  }
+                  src={movie.imgFull ? movie.imgFull : noimage}
                   alt=""
                   className="productUploadImg"
                   style={{ maxWidth: "500px" }}
@@ -179,11 +171,7 @@ export default function Product() {
               <div className="feature-img">
                 <h3>Thumbnail Image</h3>
                 <img
-                  src={
-                    movie.imgThumbnail
-                      ? movie.imgThumbnail
-                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-TamDSf7UAM-7B_Gg2xh9lIcDp6jzPwfI7jJEYWEmkGCLy1mo7eNE0AUoH5neDHRt7A&usqp=CAU"
-                  }
+                  src={movie.imgThumbnail ? movie.imgThumbnail : noimage}
                   alt=""
                   className="productUploadImg"
                   style={{ maxWidth: "500px" }}
@@ -206,11 +194,7 @@ export default function Product() {
               <div className="feature-img">
                 <h3>Title Image</h3>
                 <img
-                  src={
-                    movie.imgTitle
-                      ? movie.imgTitle
-                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-TamDSf7UAM-7B_Gg2xh9lIcDp6jzPwfI7jJEYWEmkGCLy1mo7eNE0AUoH5neDHRt7A&usqp=CAU"
-                  }
+                  src={movie.imgTitle ? movie.imgTitle : noimage}
                   alt=""
                   className="productUploadImg img-title-preview"
                   style={{ maxWidth: "500px" }}
@@ -233,11 +217,7 @@ export default function Product() {
               <div className="feature-img">
                 <h3>Preview Image</h3>
                 <img
-                  src={
-                    movie.imgPreview
-                      ? movie.imgPreview
-                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-TamDSf7UAM-7B_Gg2xh9lIcDp6jzPwfI7jJEYWEmkGCLy1mo7eNE0AUoH5neDHRt7A&usqp=CAU"
-                  }
+                  src={movie.imgPreview ? movie.imgPreview : noimage}
                   alt=""
                   className="productUploadImg"
                   style={{
@@ -264,11 +244,7 @@ export default function Product() {
               <div className="feature-img">
                 <h3>Mobile Image</h3>
                 <img
-                  src={
-                    movie.imgMobile
-                      ? movie.imgMobile
-                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-TamDSf7UAM-7B_Gg2xh9lIcDp6jzPwfI7jJEYWEmkGCLy1mo7eNE0AUoH5neDHRt7A&usqp=CAU"
-                  }
+                  src={movie.imgMobile ? movie.imgMobile : noimage}
                   alt=""
                   className="productUploadImg"
                   style={{ maxWidth: "500px" }}

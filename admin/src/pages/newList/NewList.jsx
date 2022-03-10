@@ -13,6 +13,7 @@ export default function NewList() {
   const { dispatch: dispatchList } = useContext(ListContext);
   const { movies, dispatch: dispatchMovie } = useContext(MovieContext);
   const history = useHistory();
+  let selectedMovie = [];
 
   useEffect(() => {
     getMovies(dispatchMovie);
@@ -24,13 +25,19 @@ export default function NewList() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setList({ ...list, content: selectedMovie });
     createList(dispatchList, list);
     history.push("/lists");
   };
 
   const handleSelect = (e) => {
-    let value = Array.from(e.target.selectedOptions, (option) => option.value);
-    setList({ ...list, [e.target.name]: value });
+    if (e.target.checked) {
+      selectedMovie.push(e.target.value);
+    } else {
+      selectedMovie = selectedMovie.filter((mov) => {
+        return mov !== e.target.value;
+      });
+    }
   };
 
   return (
@@ -81,38 +88,35 @@ export default function NewList() {
               />{" "}
               Series
             </label>
-            {/* <div className="addProductItem">
-            <label>Type</label>
-            <select
-              name="type"
-              id="isSeries"
-              value="series"
-              onChange={handleChange}
-            >
-              <option value="series">Series</option>
-              <option value="film">Film</option>
-            </select> */}
           </div>
         </div>
 
         <div className="form-right">
           <div className="addProductItem">
-            <label>Content (Movies)</label>
-            <select
-              multiple
-              name="content"
-              id="isSeries"
-              onChange={handleSelect}
-              style={{ height: "300px" }}
-            >
-              {movies.map((mov) => {
+            <label>Select Movies</label>
+            <div className="moviesLists">
+              {movies.map((mov, i) => {
+                const title = mov.title;
+                const id = mov._id;
                 return (
-                  <option key={mov._id} value={mov._id}>
-                    {mov.title}
-                  </option>
+                  <label htmlFor={i} className="movieLabel" key={i}>
+                    <input
+                      type="checkbox"
+                      name={title}
+                      id={i}
+                      value={id}
+                      onChange={handleSelect}
+                    />{" "}
+                    <img
+                      src={mov.imgFull}
+                      alt={title}
+                      className="productImage"
+                    />
+                    {title}
+                  </label>
                 );
               })}
-            </select>
+            </div>
           </div>
         </div>
         <button className="addProductButton" onClick={(e) => handleSubmit(e)}>
